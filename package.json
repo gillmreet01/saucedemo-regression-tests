@@ -1,0 +1,21 @@
+{
+  "name": "saucedemo-regression",
+  "version": "1.0.0",
+  "description": "Playwright regression tests for SauceDemo",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:login": "playwright test tests/login.spec.js",
+    "test:products": "playwright test tests/products.spec.js",
+    "test:cart": "playwright test tests/cart.spec.js",
+    "test:checkout": "playwright test tests/checkout.spec.js",
+    "test:logout": "playwright test tests/logout.spec.js",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}
