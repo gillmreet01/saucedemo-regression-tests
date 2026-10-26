@@ -13,7 +13,7 @@
     "report": "playwright show-report"
   },
   "keywords": [],
-  "author": "",
+  "author": "Manreet Gill",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.63.0"
