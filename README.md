@@ -1,7 +1,7 @@
 # SauceDemo Automated Regression Tests (Playwright + JavaScript)
 
 Automated regression suite for https://www.saucedemo.com covering
-**login, product listing/sorting, cart, checkout and logout** (23 test cases).
+**login, product listing/sorting, cart, checkout and logout** (17 test cases).
 
 ## Setup
 ```bash
@@ -23,23 +23,15 @@ screenshot, video and trace in `test-results/`.
 ```
 playwright.config.js   settings: base URL, reporters, screenshots
 pages/                 Page Object Model - one class per page (locators + actions)
-tests/                 test files, one per feature
+tests/                 test files, one per feature (each logs in using beforeEach)
 utils/testData.js      users, products, customer details
-utils/fixtures.js      "inventoryPage" fixture = already logged in
 ```
 
 ## Test cases
 | ID | Feature | What is checked |
 |----|---------|-----------------|
 | TC01-06 | Login | valid login, wrong password, locked user, empty username/password, direct URL access blocked |
-| TC07-11 | Products | 6 items shown, sort A-Z, Z-A, price low-high, high-low |
-| TC12-16 | Cart | badge count, add/remove, cart page contents |
-| TC17-21 | Checkout | full purchase, required-field validation, cart cleared after order |
-| TC22-23 | Logout | returns to login, protected pages blocked again |
-
-## Viva notes
-- **Page Object Model**: locators live in `pages/`, so if the UI changes we fix one file, not every test.
-- **Fixture**: `utils/fixtures.js` logs in before tests that need it (no repeated code).
-- **Locators**: use stable `data-test` attributes.
-- **Assertions**: `expect(...)` web-first assertions auto-wait until true or timeout.
-- **Independence**: each test gets a fresh browser context, so tests don't affect each other.
+| TC07-09 | Products | 6 items shown, sort A-Z, sort price low-high |
+| TC10-13 | Cart | badge count, add/remove, cart page contents |
+| TC14-16 | Checkout | full purchase, first name and postal code required |
+| TC17 | Logout | returns to login page |

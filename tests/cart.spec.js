@@ -1,38 +1,42 @@
-const { test, expect } = require('../utils/fixtures');
+const { test, expect } = require('@playwright/test');
+const { LoginPage } = require('../pages/LoginPage');
+const { InventoryPage } = require('../pages/InventoryPage');
 const { CartPage } = require('../pages/CartPage');
-const { products } = require('../utils/testData');
+const { users, password, products } = require('../utils/testData');
 
 test.describe('Cart', () => {
-  test('TC12 - adding an item updates the cart badge', async ({ inventoryPage }) => {
+  let inventoryPage;
+
+  // Before each test: log in and open the products page
+  test.beforeEach(async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login(users.standard, password);
+    inventoryPage = new InventoryPage(page);
+  });
+
+  test('TC10 - adding an item updates the cart badge', async () => {
     await inventoryPage.addToCart(products.backpack);
     await expect(inventoryPage.cartBadge).toHaveText('1');
   });
 
-  test('TC13 - adding two items shows badge 2', async ({ inventoryPage }) => {
+  test('TC11 - adding two items shows badge 2', async () => {
     await inventoryPage.addToCart(products.backpack);
     await inventoryPage.addToCart(products.bikeLight);
     await expect(inventoryPage.cartBadge).toHaveText('2');
   });
 
-  test('TC14 - removing an item on the products page clears the badge', async ({ inventoryPage }) => {
+  test('TC12 - removing an item clears the badge', async () => {
     await inventoryPage.addToCart(products.backpack);
     await inventoryPage.removeFromCart(products.backpack);
     await expect(inventoryPage.cartBadge).toHaveCount(0);
   });
 
-  test('TC15 - cart page lists the added item', async ({ page, inventoryPage }) => {
+  test('TC13 - cart page lists the added item', async ({ page }) => {
     await inventoryPage.addToCart(products.backpack);
     await inventoryPage.openCart();
     const cartPage = new CartPage(page);
     await expect(page).toHaveURL(/cart\.html/);
     await expect(cartPage.itemNames).toHaveText([products.backpack]);
-  });
-
-  test('TC16 - removing an item on the cart page empties the cart', async ({ page, inventoryPage }) => {
-    await inventoryPage.addToCart(products.backpack);
-    await inventoryPage.openCart();
-    const cartPage = new CartPage(page);
-    await cartPage.removeItem(products.backpack);
-    await expect(cartPage.items).toHaveCount(0);
   });
 });

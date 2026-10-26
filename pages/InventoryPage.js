@@ -5,7 +5,6 @@ class InventoryPage {
     this.title = page.locator('[data-test="title"]');
     this.items = page.locator('[data-test="inventory-item"]');
     this.itemNames = page.locator('[data-test="inventory-item-name"]');
-    this.itemPrices = page.locator('[data-test="inventory-item-price"]');
     this.sortDropdown = page.locator('[data-test="product-sort-container"]');
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
     this.cartLink = page.locator('[data-test="shopping-cart-link"]');
@@ -28,15 +27,6 @@ class InventoryPage {
 
   async sortBy(value) {
     await this.sortDropdown.selectOption(value); // az, za, lohi, hilo
-  }
-
-  async getNames() {
-    return await this.itemNames.allTextContents();
-  }
-
-  async getPrices() {
-    const texts = await this.itemPrices.allTextContents(); // e.g. "$29.99"
-    return texts.map((t) => parseFloat(t.replace('$', '')));
   }
 
   async openCart() {

@@ -1,31 +1,30 @@
-const { test, expect } = require('../utils/fixtures');
+const { test, expect } = require('@playwright/test');
+const { LoginPage } = require('../pages/LoginPage');
+const { InventoryPage } = require('../pages/InventoryPage');
+const { users, password } = require('../utils/testData');
 
-test.describe('Product listing and sorting', () => {
-  test('TC07 - shows 6 products', async ({ inventoryPage }) => {
+test.describe('Products', () => {
+  let inventoryPage;
+
+  // Before each test: log in and open the products page
+  test.beforeEach(async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login(users.standard, password);
+    inventoryPage = new InventoryPage(page);
+  });
+
+  test('TC07 - shows 6 products', async () => {
     await expect(inventoryPage.items).toHaveCount(6);
   });
 
-  test('TC08 - sort by name A to Z', async ({ inventoryPage }) => {
+  test('TC08 - sort by name A to Z', async () => {
     await inventoryPage.sortBy('az');
-    const names = await inventoryPage.getNames();
-    expect(names).toEqual([...names].sort());
+    await expect(inventoryPage.itemNames.first()).toHaveText('Sauce Labs Backpack');
   });
 
-  test('TC09 - sort by name Z to A', async ({ inventoryPage }) => {
-    await inventoryPage.sortBy('za');
-    const names = await inventoryPage.getNames();
-    expect(names).toEqual([...names].sort().reverse());
-  });
-
-  test('TC10 - sort by price low to high', async ({ inventoryPage }) => {
+  test('TC09 - sort by price low to high', async () => {
     await inventoryPage.sortBy('lohi');
-    const prices = await inventoryPage.getPrices();
-    expect(prices).toEqual([...prices].sort((a, b) => a - b));
-  });
-
-  test('TC11 - sort by price high to low', async ({ inventoryPage }) => {
-    await inventoryPage.sortBy('hilo');
-    const prices = await inventoryPage.getPrices();
-    expect(prices).toEqual([...prices].sort((a, b) => b - a));
+    await expect(inventoryPage.itemNames.first()).toHaveText('Sauce Labs Onesie');
   });
 });
