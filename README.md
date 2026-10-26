@@ -23,8 +23,9 @@ screenshot, video and trace in `test-results/`.
 ```
 playwright.config.js   settings: base URL, reporters, screenshots
 pages/                 Page Object Model - one class per page (locators + actions)
-tests/                 test files, one per feature (each logs in using beforeEach)
+tests/                 test files, one per feature (each test logs in first)
 utils/testData.js      users, products, customer details
+docs/                  test plan and test cases, and the project report (Word and PDF)
 ```
 
 ## Test cases
@@ -35,3 +36,7 @@ utils/testData.js      users, products, customer details
 | TC10-13 | Cart | badge count, add/remove, cart page contents |
 | TC14-16 | Checkout | full purchase, first name and postal code required |
 | TC17 | Logout | returns to login page |
+
+## Documents
+- [Test plan and test cases](docs/SauceDemo_Test_Plan_and_Test_Cases.pdf): scope, approach, 17 test cases with steps, expected and actual results, and defects/observations.
+- [Project report](docs/SauceDemo_Project_Report.pdf): full project report (introduction, literature survey, design, results, conclusion, user manual).
