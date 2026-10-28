@@ -6,7 +6,7 @@ Automated regression suite for https://www.saucedemo.com covering
 ## Setup
 ```bash
 npm install
-npx playwright install chromium   # one-time browser download
+npm run install:browser   # one-time download of the Chromium build matching the pinned Playwright version
 ```
 
 ## Run
