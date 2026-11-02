@@ -40,3 +40,4 @@ docs/                  test plan and test cases, and the project report (Word an
 ## Documents
 - [Test plan and test cases](docs/SauceDemo_Test_Plan_and_Test_Cases.pdf): scope, approach, 17 test cases with steps, expected and actual results, and defects/observations.
 - [Project report](docs/SauceDemo_Project_Report.pdf): full project report (introduction, literature survey, design, results, conclusion, user manual).
+- [Test showcase page](docs/SauceDemo_Test_Showcase.html): a web page for presenting the project. It describes the website that was tested and lists all 17 test cases with steps and results. Open it in a browser (double-click the file).
